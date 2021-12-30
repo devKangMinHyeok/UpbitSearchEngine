@@ -1,0 +1,19 @@
+{
+  "name": "auto-trading",
+  "version": "1.0.0",
+  "description": "auto trading",
+  "main": "index.js",
+  "scripts": {
+    "dev:server": "nodemon"
+  },
+  "author": "kang",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "express": "^4.17.2",
+    "node-fetch": "^2.6.6",
+    "nodemon": "^2.0.14"
+  }
+}
