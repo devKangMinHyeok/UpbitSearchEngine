@@ -16,18 +16,17 @@ const getTimeNow = () => {
   return `${hour}:${minute}:${second}`;
 };
 
-const generatePostNum = (localPort) => {
-  const PORT = process.env.PORT || localPort;
-  return PORT;
-};
+// const generatePostNum = (localPort) => {
+//   const PORT = process.env.PORT || localPort;
+//   return PORT;
+// };
 
-const PORT = generatePostNum(process.env.LOCAL_PORT);
-
+// const PORT = generatePostNum(process.env.LOCAL_PORT);
+const PORT = 4000;
 const handleListening = () => {
   console.log(
-    `[${getTimeNow()}] Server listening on port ${
-      process.env.SERVER_LOCATION
-    }:${PORT}`
+    `[${getTimeNow()}] Server listening on port 
+      localhost:4000`
   );
 };
 
