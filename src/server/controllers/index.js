@@ -108,4 +108,5 @@ export const run = async () => {
     }
     // console.log("----------------------------------");
   }
+  console.log("run done");
 };
