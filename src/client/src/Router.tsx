@@ -1,16 +1,19 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./routes/Home";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Manual from "./routes/Manual";
 import Test from "./routes/Test";
 
 function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/test">
-          <Test />
+        <Route exact={true} path="/manual">
+          <Manual />
         </Route>
-        <Route path="/">
-          <Home />
+        <Route exact={true} path="/">
+          <Redirect to="/manual" />
+        </Route>
+        <Route exact={true} path="/manual/:algorithm">
+          <Manual />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -1,9 +1,9 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 import Router from "./Router";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
 
   html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -53,7 +53,7 @@ table {
 }
 body {
 	font-weight: 300;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 a {
   text-decoration: none;
@@ -64,7 +64,9 @@ a {
 function App() {
   return (
     <>
+      <GlobalStyle />
       <Router />
+      <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
 }

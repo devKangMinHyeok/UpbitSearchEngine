@@ -8,26 +8,27 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  height: 10vh;
+  height: 2vh;
+  margin-top: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Title = styled.h1`
-  font-size: 32px;
+  font-size: 20px;
   color: black;
+  font-weight: 500;
 `;
 
-function Home() {
+function Manual() {
   return (
     <Container>
       <Header>
         <Title>Upbit Search Engine</Title>
       </Header>
       <EngineContainer></EngineContainer>
-      {/* <Envelope movingAverage={20} percent={10} /> */}
     </Container>
   );
 }
-export default Home;
+export default Manual;

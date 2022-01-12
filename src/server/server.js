@@ -25,6 +25,6 @@ const logger = customServerLogger(process.env.MY_TIME_ZONE);
 app.use("/", express.static(path.join(__dirname, "../client/build")));
 
 app.use(logger);
-app.use("/api", apiRouter);
+app.use("/", apiRouter);
 
 export default app;
