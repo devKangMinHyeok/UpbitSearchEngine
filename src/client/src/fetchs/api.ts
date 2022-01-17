@@ -2,10 +2,7 @@ const DEFAULT_URL = "https://api.upbit.com";
 
 export async function fetchMarketCodes() {
   const options = { method: "GET", headers: { Accept: "application/json" } };
-  const response = await fetch(
-    `${DEFAULT_URL}/v1/market/all?isDetails=false`,
-    options
-  );
+  const response = await fetch(`/v1/market/all?isDetails=false`, options);
   const json = await response.json();
 
   return json;

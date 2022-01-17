@@ -1,7 +1,6 @@
 import express from "express";
-import { home, test } from "../controllers/home";
+import { apiController } from "../controllers/apiController";
 
 const apiRouter = express.Router();
-
-apiRouter.get("*", home);
+apiRouter.get("*", apiController);
 export default apiRouter;

@@ -18,7 +18,7 @@ import {
   targetMarketCodesState,
 } from "../atoms";
 import { fetchCandle, fetchMarketCodes } from "../fetchs/api";
-import Ichimoku from "./Ichimoku";
+import IchimokuEngine from "./IchimokuEngine";
 import OverFallEngine from "./OverFallEngine";
 import { CandleDataProps, getUrl } from "./subAlgorithm";
 
@@ -234,7 +234,7 @@ function AlgoReturn() {
     case OVER_FALL:
       return <OverFallEngine />;
     case ICHIMOKU:
-      return <Ichimoku />;
+      return <IchimokuEngine />;
     default:
       return <></>;
   }
@@ -387,6 +387,7 @@ function Chart() {
       refetchInterval: 30000,
     }
   );
+
   useEffect(() => {
     if (!isLoading && data) {
       const filteredData = data.map((candle: CandleDataProps) => {
@@ -403,6 +404,7 @@ function Chart() {
       console.log(filteredData);
     }
   }, [data]);
+
   return (
     <ChartContainer>
       <span>{currentChart}</span>

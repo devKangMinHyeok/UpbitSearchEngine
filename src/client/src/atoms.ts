@@ -82,6 +82,9 @@ export interface searchMarketCodesProps {
     low: boolean;
     high: boolean;
   };
+  ichimoku: {
+    upSpan: boolean;
+  };
 }
 
 export const searchMarketCodesState = atom({

@@ -1,9 +1,10 @@
 import express from "express";
-import apiRouter from "./routers/apiRouter.js";
+import mainRouter from "./routers/mainRouter.js";
 import path from "path";
 
 import morgan from "morgan";
 import moment from "moment-timezone";
+import apiRouter from "./routers/apiRouter.js";
 
 const customServerLogger = (timezone) => {
   morgan.token("date", (req, res, tz) => {
@@ -22,9 +23,10 @@ const customServerLogger = (timezone) => {
 const app = express();
 const logger = customServerLogger(process.env.MY_TIME_ZONE);
 
-app.use("/", express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use(logger);
-app.use("/", apiRouter);
+app.use("/v1", apiRouter);
+// app.use("/", mainRouter);
 
 export default app;

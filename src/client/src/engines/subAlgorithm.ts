@@ -1,3 +1,27 @@
+import { MarketCodesProps } from "../atoms";
+
+export const searchMarketCodesInit = (
+  targetMarketCodes: MarketCodesProps[]
+) => {
+  const update = targetMarketCodes.map((ele) => {
+    const result = {
+      marketCode: ele.marketCode,
+      market: ele.market,
+      search: false,
+      match: false,
+      envelope: {
+        low: false,
+        high: false,
+      },
+      ichimoku: {
+        upSpan: false,
+      },
+    };
+    return result;
+  });
+  return update;
+};
+
 export interface CandleDataProps {
   market: string;
   candle_date_time_utc: string;
@@ -26,9 +50,9 @@ export const getUrl = (candle: string, marketCode: string, days: number) => {
   }
 
   if (candle === "1day") {
-    url = `${DEFAULT_URL}/v1/candles/days?market=${marketCode}&count=${days}`;
+    url = `/v1/candles/days?market=${marketCode}&count=${days}`;
   } else {
-    url = `${DEFAULT_URL}/v1/candles/minutes/${candleType}?market=${marketCode}&count=${days}`;
+    url = `/v1/candles/minutes/${candleType}?market=${marketCode}&count=${days}`;
   }
 
   return url;
@@ -81,4 +105,82 @@ export const getEnvelopeDataSet = (
     return;
   }
   for (let i = 0; i < candleSet.length - maDays; i++) {}
+};
+
+const getHighPrice = (data: CandleDataProps[]) => {
+  let highPrice = 0;
+  for (let i = 0; i < data.length; i++) {
+    const currentCandle = data[i];
+    if (currentCandle.high_price > highPrice)
+      highPrice = currentCandle.high_price;
+  }
+  return highPrice;
+};
+
+const getLowPrice = (data: CandleDataProps[]) => {
+  let lowPrice = 1000000000000;
+  for (let i = 0; i < data.length; i++) {
+    const currentCandle = data[i];
+    if (currentCandle.low_price < lowPrice) lowPrice = currentCandle.low_price;
+  }
+  return lowPrice;
+};
+
+const getIchimokuLine = (data: CandleDataProps[]) => {
+  const lowPrice = getLowPrice(data);
+  const highPrice = getHighPrice(data);
+  const IchimokueLinePrice = (highPrice + lowPrice) / 2;
+
+  return IchimokueLinePrice;
+};
+
+export const getIchimokuData = (
+  data: CandleDataProps[],
+  DEFAULT_ICHIMOKU_DAYS: number,
+  DEFAULT_ICHIMOKU_SET_DAYS: number
+) => {
+  const conversionCandle = data.slice(
+    DEFAULT_ICHIMOKU_SET_DAYS,
+    DEFAULT_ICHIMOKU_SET_DAYS + 9
+  );
+  const baseCandle = data.slice(
+    DEFAULT_ICHIMOKU_SET_DAYS,
+    DEFAULT_ICHIMOKU_SET_DAYS + 26
+  );
+  const LeadTwoCandle = data.slice(
+    DEFAULT_ICHIMOKU_SET_DAYS,
+    DEFAULT_ICHIMOKU_SET_DAYS + 52
+  );
+
+  const conversion = getIchimokuLine(conversionCandle);
+  const base = getIchimokuLine(baseCandle);
+  const leadOne = (conversion + base) / 2;
+  const leadTwo = getIchimokuLine(LeadTwoCandle);
+
+  return {
+    conversion,
+    base,
+    leadOne,
+    leadTwo,
+  };
+};
+
+interface IchimokuDataProps {
+  conversion: number;
+  base: number;
+  leadOne: number;
+  leadTwo: number;
+}
+
+export const checkIchimoku = (
+  ichimokuData: IchimokuDataProps,
+  currentCandle: CandleDataProps
+) => {
+  const isUpThanLeadOne = currentCandle.high_price >= ichimokuData.leadOne;
+  const isUpThanLeadTwo = currentCandle.high_price >= ichimokuData.leadTwo;
+  if (isUpThanLeadOne && isUpThanLeadTwo) {
+    return "UpSpanThisCandle";
+  } else {
+    return "Nothing";
+  }
 };
