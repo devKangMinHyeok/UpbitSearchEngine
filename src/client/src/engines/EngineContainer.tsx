@@ -401,7 +401,6 @@ function Chart() {
         return result;
       });
       setTohlc([...filteredData]);
-      console.log(filteredData);
     }
   }, [data]);
 

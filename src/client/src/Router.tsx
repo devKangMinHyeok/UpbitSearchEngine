@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Auto from "./routes/Auto";
 import Manual from "./routes/Manual";
-import Test from "./routes/Test";
 
 function Router() {
   return (
@@ -8,6 +8,9 @@ function Router() {
       <Switch>
         <Route exact={true} path="/manual">
           <Manual />
+        </Route>
+        <Route path="/auto">
+          <Auto />
         </Route>
         <Route exact={true} path="/">
           <Redirect to="/manual" />
