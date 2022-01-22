@@ -115,12 +115,8 @@ function Scheduler() {
               return (
                 <ScheduleBox key={ele.marketCode}>
                   <ScheduleElement>{ele.marketCode}</ScheduleElement>
-                  <ScheduleActiveState
-                    isActive={ele.data.detecting}
-                  ></ScheduleActiveState>
-                  <ScheduleActiveState
-                    isActive={ele.data.alarm}
-                  ></ScheduleActiveState>
+                  <ScheduleActiveState isActive={ele.data.detecting} />
+                  <ScheduleActiveState isActive={ele.data.alarm} />
                 </ScheduleBox>
               );
             }

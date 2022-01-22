@@ -84,10 +84,11 @@ function MaCtr({ candle, curMarketCode }: MACtrProps) {
   }, [algoData, candle]);
 
   useEffect(() => {
-    if (algoData.candle) {
-      setAlgoData((prev) => {
+    setAlgoData((prev) => {
+      if (algoData && algoData.candle) {
         const copyData = copy(prev);
-        const curCandleData = copyData.candle.find((ele) => ele.id === candle);
+
+        const curCandleData = copyData.candle?.find((ele) => ele.id === candle);
         if (curCandleData) {
           const localMa1 = curCandleData.detail.find((ele) => ele.id === "ma1");
           const localMa2 = curCandleData.detail.find((ele) => ele.id === "ma2");
@@ -99,8 +100,10 @@ function MaCtr({ candle, curMarketCode }: MACtrProps) {
           if (localMa2) localMa2.data.maNumber = ma2Value;
         }
         return copyData;
-      });
-    }
+      } else {
+        return prev;
+      }
+    });
   }, [alarmSector, ma1Value, ma2Value, ma1On, ma2On]);
 
   return (

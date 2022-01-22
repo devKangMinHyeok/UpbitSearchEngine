@@ -95,6 +95,11 @@ export const searchMarketCodesState = atom({
 });
 
 // Auto
+export const AutoSearchActiveState = atom({
+  key: "AutoSearchActive",
+  default: false,
+});
+
 export const autoNavState = atom({
   key: "autoNav",
   default: "dashboard",
@@ -120,11 +125,16 @@ const { persistAtom: autoAlgoListLocal } = recoilPersist({
   storage: localStorage,
 });
 
+export interface autoAlgoListStateProps {
+  algo: string;
+  active: boolean;
+}
+
 export const autoAlgoListState = atom({
   key: "autoAlgoList",
   default: AUTO_ALGO_LIST.map((ele) => {
     return { algo: ele, active: false };
-  }),
+  }) as autoAlgoListStateProps[],
   effects_UNSTABLE: [autoAlgoListLocal],
 });
 
